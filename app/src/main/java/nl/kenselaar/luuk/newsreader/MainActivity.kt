@@ -3,6 +3,8 @@ package nl.kenselaar.luuk.newsreader
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListener  {
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
