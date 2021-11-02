@@ -8,6 +8,5 @@ class FavoritesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.favorites_view)
         supportActionBar!!.title = "Favorite articles"
-
     }
 }
