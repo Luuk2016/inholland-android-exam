@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +27,32 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
         inflater.inflate(R.menu.menu, menu)
         return true
     }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.refresh -> {
+            recreate()
+            true
+        }
+        R.id.account -> {
+            startActivity(Intent(this, AccountActivity::class.java))
+            true
+        }
+        R.id.favorites -> {
+            // @TODO: CHECK IF LOGGEDIN
+            if (true) {
+                startActivity(Intent(this, FavoritesActivity::class.java))
+            } else {
+                val toast = Toast.makeText(applicationContext, "Please login first!", Toast.LENGTH_SHORT)
+                toast.show()
+            }
+
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

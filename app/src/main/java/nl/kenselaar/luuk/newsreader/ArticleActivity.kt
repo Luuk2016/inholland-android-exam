@@ -12,9 +12,11 @@ class ArticleActivity : AppCompatActivity() {
     companion object {
         const val ARTICLE = "article"
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.article_view)
+        supportActionBar!!.title = "Article"
 
         val article = intent.getSerializableExtra(ARTICLE) as? Article
         Log.i("Detail", "Open article with id ${article?.Id}")
