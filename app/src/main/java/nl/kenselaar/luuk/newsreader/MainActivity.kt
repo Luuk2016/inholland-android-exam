@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.refresh -> {
+            getArticles()
             recreate()
             true
         }
@@ -72,19 +73,11 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_view)
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://inhollandbackend.azurewebsites.net/api/")
-            .addConverterFactory(MoshiConverterFactory.create())
-            .build()
-
-        val service = retrofit.create(ApiService::class.java)
-        service.articles().enqueue(this)
-
+        getArticles()
     }
 
     override fun onResponse(call: Call<ArticleResult>, response: Response<ArticleResult>) {
@@ -104,5 +97,22 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
         val intent = Intent(this, ArticleActivity::class.java)
         intent.putExtra(ARTICLE, item)
         startActivity(intent)
+    }
+
+    private fun getArticles() {
+        AppPreferences.init(this)
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://inhollandbackend.azurewebsites.net/api/")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build()
+
+        val service = retrofit.create(ApiService::class.java)
+
+        if (AppPreferences.isLogin) {
+            service.getArticlesAuthenticated(AppPreferences.authToken).enqueue(this)
+        } else {
+            service.getArticles().enqueue(this)
+        }
     }
 }
