@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import nl.kenselaar.luuk.newsreader.ArticleActivity.Companion.ARTICLE
 import nl.kenselaar.luuk.newsreader.model.Article
 import nl.kenselaar.luuk.newsreader.model.ArticleResult
+import nl.kenselaar.luuk.newsreader.preferences.AppPreferences
 import nl.kenselaar.luuk.newsreader.service.ApiService
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,8 +24,15 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListener  {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        AppPreferences.init(this)
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.main_menu, menu)
+
+        if (AppPreferences.isLogin) {
+            inflater.inflate(R.menu.main_menu_logged_in, menu)
+        } else {
+            inflater.inflate(R.menu.main_menu, menu)
+        }
+
         return true
     }
 
@@ -33,17 +41,28 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
             recreate()
             true
         }
+
         R.id.account -> {
             startActivity(Intent(this, AccountActivity::class.java))
             true
         }
+
+        R.id.logout -> {
+            AppPreferences.init(this)
+            AppPreferences.isLogin = false
+            AppPreferences.authToken = ""
+            recreate()
+            true
+        }
+
         R.id.favorites -> {
-            // @TODO: CHECK IF LOGGEDIN
-            if (true) {
+            AppPreferences.init(this)
+
+            // Check if logged in
+            if (AppPreferences.isLogin) {
                 startActivity(Intent(this, FavoritesActivity::class.java))
             } else {
-                val toast = Toast.makeText(applicationContext, "Please login first!", Toast.LENGTH_SHORT)
-                toast.show()
+                Toast.makeText(applicationContext, "Please login first!", Toast.LENGTH_SHORT).show()
             }
 
             true
@@ -65,6 +84,7 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
 
         val service = retrofit.create(ApiService::class.java)
         service.articles().enqueue(this)
+
     }
 
     override fun onResponse(call: Call<ArticleResult>, response: Response<ArticleResult>) {
