@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,6 +16,12 @@ import nl.kenselaar.luuk.newsreader.model.Article
 class ArticleActivity : AppCompatActivity() {
     companion object {
         const val ARTICLE = "article"
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.article_menu, menu)
+        return true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

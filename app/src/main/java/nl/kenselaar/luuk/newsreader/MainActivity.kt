@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.menu, menu)
+        inflater.inflate(R.menu.main_menu, menu)
         return true
     }
 

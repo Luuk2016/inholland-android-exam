@@ -37,5 +37,4 @@
             android:exported="true"
             android:parentActivityName=".AccountActivity" />
     </application>
-
 </manifest>
