@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import nl.kenselaar.luuk.newsreader.model.Article
@@ -47,25 +49,6 @@ class FavoritesActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemLi
         getLikedArticles()
     }
 
-    override fun onResponse(call: Call<ArticleResult>, response: Response<ArticleResult>) {
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = MyAdapter(response.body()!!.Results)
-        adapter.setItemListener(this)
-
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
-    }
-
-    override fun onFailure(call: Call<ArticleResult>, t: Throwable) {
-        Log.i("Detail", t.message.toString())
-    }
-
-    override fun onItemClicked(item: Article) {
-        val intent = Intent(this, ArticleActivity::class.java)
-        intent.putExtra(ArticleActivity.ARTICLE, item)
-        startActivity(intent)
-    }
-
     private fun getLikedArticles() {
         AppPreferences.init(this)
 
@@ -76,5 +59,27 @@ class FavoritesActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemLi
 
         val service = retrofit.create(ApiService::class.java)
         service.getLikedArticles(AppPreferences.authToken).enqueue(this)
+    }
+
+    override fun onResponse(call: Call<ArticleResult>, response: Response<ArticleResult>) {
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+        val adapter = MyAdapter(response.body()!!.Results)
+        adapter.setItemListener(this)
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+
+        val loadingArticles: TextView = findViewById(R.id.loading_articles)
+        loadingArticles.isVisible = false
+    }
+
+    override fun onFailure(call: Call<ArticleResult>, t: Throwable) {
+        Log.i("Detail", t.message.toString())
+    }
+
+    override fun onItemClicked(item: Article) {
+        val intent = Intent(this, ArticleActivity::class.java)
+        intent.putExtra(ArticleActivity.ARTICLE, item)
+        startActivity(intent)
     }
 }

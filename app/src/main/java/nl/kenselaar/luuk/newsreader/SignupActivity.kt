@@ -1,5 +1,6 @@
 package nl.kenselaar.luuk.newsreader
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -63,6 +64,9 @@ class SignupActivity : AppCompatActivity() {
                     if (response.body() != null) {
                         if (response.body()?.Success == true) {
                             Toast.makeText(applicationContext, response.body()?.Message, Toast.LENGTH_SHORT).show()
+
+                            // Open new page
+                            startActivity(Intent(this@SignupActivity, AccountActivity::class.java))
                         } else {
                             Toast.makeText(applicationContext, response.body()?.Message, Toast.LENGTH_SHORT).show()
                         }

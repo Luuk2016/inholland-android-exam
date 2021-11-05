@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
             AppPreferences.init(this)
             AppPreferences.isLogin = false
             AppPreferences.authToken = ""
+            Toast.makeText(applicationContext, "You have been logged out!", Toast.LENGTH_SHORT).show()
             recreate()
             true
         }

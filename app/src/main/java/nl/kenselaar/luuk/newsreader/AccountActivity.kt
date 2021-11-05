@@ -67,9 +67,12 @@ class AccountActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                     if (response.body() != null) {
-                        Toast.makeText(applicationContext, response.body()?.AuthToken, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "You have been logged in!", Toast.LENGTH_SHORT).show()
                         AppPreferences.isLogin = true
                         AppPreferences.authToken = response.body()?.AuthToken.toString()
+
+                        // Open new page
+                        startActivity(Intent(this@AccountActivity, MainActivity::class.java))
                     } else {
                         Toast.makeText(applicationContext, "Failed to login!", Toast.LENGTH_SHORT).show()
                     }

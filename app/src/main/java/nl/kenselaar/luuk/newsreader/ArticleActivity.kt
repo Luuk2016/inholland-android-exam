@@ -39,8 +39,8 @@ class ArticleActivity : AppCompatActivity() {
         val article = intent.getSerializableExtra(ARTICLE) as? Article
         Log.i("Detail", "Open article with id ${article?.Id}")
 
-        val image = findViewById<ImageView>(R.id.Image)
-        image.load(article?.Image)
+//        val image = findViewById<ImageView>(R.id.Image)
+//        image.load(article?.Image)
 
         val nameTextView = findViewById<TextView>(R.id.Title)
         nameTextView.text = article?.Title
