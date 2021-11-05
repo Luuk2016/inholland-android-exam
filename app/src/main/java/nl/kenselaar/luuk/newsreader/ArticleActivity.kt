@@ -75,7 +75,7 @@ class ArticleActivity : AppCompatActivity() {
                     val service = retrofit.create(ApiService::class.java)
 
                     if (!article.IsLiked) {
-                        service.likeArticle(article.Id, AppPreferences.authToken).enqueue(object: Callback<Void>{
+                        service.likeArticle(AppPreferences.authToken, article.Id).enqueue(object: Callback<Void>{
                             override fun onFailure(call: Call<Void>, t: Throwable) {
                                 Toast.makeText(applicationContext, "Could not like article, please try again", Toast.LENGTH_SHORT).show()
                             }
@@ -89,7 +89,7 @@ class ArticleActivity : AppCompatActivity() {
                             }
                         })
                     } else {
-                        service.unlikeArticle(article.Id, AppPreferences.authToken).enqueue(object: Callback<Void>{
+                        service.unlikeArticle(AppPreferences.authToken, article.Id).enqueue(object: Callback<Void>{
                             override fun onFailure(call: Call<Void>, t: Throwable) {
                                 Toast.makeText(applicationContext, "Could not unlike article, please try again", Toast.LENGTH_SHORT).show()
                             }

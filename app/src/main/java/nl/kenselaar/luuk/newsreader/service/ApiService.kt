@@ -9,11 +9,14 @@ import retrofit2.http.*
 
 interface ApiService {
     @GET("Articles")
-    fun getArticles(): Call<ArticleResult>
+    fun getArticles(
+        @Query("count") count: Int?
+    ): Call<ArticleResult>
 
     @GET("Articles")
     fun getArticlesAuthenticated(
-        @Header("x-authtoken") authHeader: String?
+        @Header("x-authtoken") authHeader: String?,
+        @Query("count") count: Int?
     ): Call<ArticleResult>
 
     @GET("Articles/liked")
@@ -23,14 +26,14 @@ interface ApiService {
 
     @PUT("Articles/{id}/like")
     fun likeArticle(
-        @Path("id") id: Int?,
-        @Header("x-authtoken") authHeader: String?
+        @Header("x-authtoken") authHeader: String?,
+        @Path("id") id: Int?
     ): Call<Void>
 
     @DELETE("Articles/{id}/like")
     fun unlikeArticle(
-        @Path("id") id: Int?,
-        @Header("x-authtoken") authHeader: String?
+        @Header("x-authtoken") authHeader: String?,
+        @Path("id") id: Int?
     ): Call<Void>
 
     @Headers("Content-Type: application/json")
