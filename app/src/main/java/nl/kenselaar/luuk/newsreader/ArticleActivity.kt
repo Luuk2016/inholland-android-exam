@@ -74,36 +74,34 @@ class ArticleActivity : AppCompatActivity() {
 
                     val service = retrofit.create(ApiService::class.java)
 
-                    if (article != null) {
-                        if (!article.IsLiked) {
-                            service.likeArticle(article.Id, AppPreferences.authToken).enqueue(object: Callback<Void>{
-                                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    if (!article.IsLiked) {
+                        service.likeArticle(article.Id, AppPreferences.authToken).enqueue(object: Callback<Void>{
+                            override fun onFailure(call: Call<Void>, t: Throwable) {
+                                Toast.makeText(applicationContext, "Could not like article, please try again", Toast.LENGTH_SHORT).show()
+                            }
+
+                            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                if (response.code() == 200) {
+                                    Toast.makeText(applicationContext, "Article has been liked", Toast.LENGTH_SHORT).show()
+                                } else {
                                     Toast.makeText(applicationContext, "Could not like article, please try again", Toast.LENGTH_SHORT).show()
                                 }
+                            }
+                        })
+                    } else {
+                        service.unlikeArticle(article.Id, AppPreferences.authToken).enqueue(object: Callback<Void>{
+                            override fun onFailure(call: Call<Void>, t: Throwable) {
+                                Toast.makeText(applicationContext, "Could not unlike article, please try again", Toast.LENGTH_SHORT).show()
+                            }
 
-                                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                                    if (response.code() == 200) {
-                                        Toast.makeText(applicationContext, "Article has been liked", Toast.LENGTH_SHORT).show()
-                                    } else {
-                                        Toast.makeText(applicationContext, "Could not like article, please try again", Toast.LENGTH_SHORT).show()
-                                    }
-                                }
-                            })
-                        } else {
-                            service.unlikeArticle(article.Id, AppPreferences.authToken).enqueue(object: Callback<Void>{
-                                override fun onFailure(call: Call<Void>, t: Throwable) {
+                            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                if (response.code() == 200) {
+                                    Toast.makeText(applicationContext, "Article has been unliked", Toast.LENGTH_SHORT).show()
+                                } else {
                                     Toast.makeText(applicationContext, "Could not unlike article, please try again", Toast.LENGTH_SHORT).show()
                                 }
-
-                                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                                    if (response.code() == 200) {
-                                        Toast.makeText(applicationContext, "Article has been unliked", Toast.LENGTH_SHORT).show()
-                                    } else {
-                                        Toast.makeText(applicationContext, "Could not unlike article, please try again", Toast.LENGTH_SHORT).show()
-                                    }
-                                }
-                            })
-                        }
+                            }
+                        })
                     }
                 }
             } else {

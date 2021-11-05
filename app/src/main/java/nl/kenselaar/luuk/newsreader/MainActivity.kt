@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.refresh -> {
-            getArticles()
             recreate()
             true
         }
