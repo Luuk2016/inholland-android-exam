@@ -4,19 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import coil.load
 import nl.kenselaar.luuk.newsreader.model.Article
-import nl.kenselaar.luuk.newsreader.model.LoginResponse
-import nl.kenselaar.luuk.newsreader.model.User
 import nl.kenselaar.luuk.newsreader.preferences.AppPreferences
 import nl.kenselaar.luuk.newsreader.service.ApiService
 import retrofit2.Call
@@ -39,8 +33,8 @@ class ArticleActivity : AppCompatActivity() {
         val article = intent.getSerializableExtra(ARTICLE) as? Article
         Log.i("Detail", "Open article with id ${article?.Id}")
 
-//        val image = findViewById<ImageView>(R.id.Image)
-//        image.load(article?.Image)
+        val image = findViewById<ImageView>(R.id.Image)
+        image.load(article?.Image)
 
         val nameTextView = findViewById<TextView>(R.id.Title)
         nameTextView.text = article?.Title
