@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import nl.kenselaar.luuk.newsreader.model.Article
 import nl.kenselaar.luuk.newsreader.model.ArticleResult
 
@@ -16,7 +17,11 @@ class MyAdapter(private val items: List<Article>) : RecyclerView.Adapter<MyViewH
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.title.text = items[position].Title
-        holder.image.load(items[position].Image)
+        holder.image.load(items[position].Image) {
+            crossfade(true)
+            placeholder(R.drawable.ic_baseline_image_24)
+            transformations(CircleCropTransformation())
+        }
 
         holder.itemView.setOnClickListener { itemListener?.onItemClicked(items[position]) }
     }

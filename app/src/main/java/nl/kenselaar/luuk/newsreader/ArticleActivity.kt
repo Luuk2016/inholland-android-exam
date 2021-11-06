@@ -4,12 +4,17 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import coil.load
+import coil.transform.CircleCropTransformation
 import nl.kenselaar.luuk.newsreader.model.Article
 import nl.kenselaar.luuk.newsreader.preferences.AppPreferences
 import nl.kenselaar.luuk.newsreader.service.ApiService
@@ -34,7 +39,11 @@ class ArticleActivity : AppCompatActivity() {
         Log.i("Detail", "Open article with id ${article?.Id}")
 
         val image = findViewById<ImageView>(R.id.Image)
-        image.load(article?.Image)
+        image.load(article?.Image) {
+            crossfade(true)
+            placeholder(R.drawable.ic_baseline_image_24)
+            transformations(CircleCropTransformation())
+        }
 
         val nameTextView = findViewById<TextView>(R.id.Title)
         nameTextView.text = article?.Title
