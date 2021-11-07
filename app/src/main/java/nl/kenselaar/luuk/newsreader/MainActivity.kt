@@ -26,6 +26,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListener  {
+    private val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl("https://inhollandbackend.azurewebsites.net/api/")
+        .addConverterFactory(MoshiConverterFactory.create())
+        .build()
+
+    private val service: ApiService = retrofit.create(ApiService::class.java)
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         AppPreferences.init(this)
         val inflater: MenuInflater = menuInflater
@@ -44,12 +51,10 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
             recreate()
             true
         }
-
         R.id.account -> {
             startActivity(Intent(this, AccountActivity::class.java))
             true
         }
-
         R.id.logout -> {
             AppPreferences.init(this)
             AppPreferences.isLogin = false
@@ -58,7 +63,6 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
             recreate()
             true
         }
-
         R.id.favorites -> {
             AppPreferences.init(this)
 
@@ -80,26 +84,29 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_view)
 
+        // Set the amount of articles to get
         var count = 20
+
         getArticles(count)
 
-        val loadMoreButton: Button = findViewById(R.id.getMore)
-        loadMoreButton.isVisible = false
-        loadMoreButton.setOnClickListener {
-            count += 20
-            getArticles(count)
-        }
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // Load 20 articles when reaching the bottom
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    Toast.makeText(applicationContext, "Loading 20 more", Toast.LENGTH_SHORT).show()
+                    count += 20
+                    getArticles(count)
+                }
+            }
+        })
     }
 
     private fun getArticles(count: Int) {
         AppPreferences.init(this)
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://inhollandbackend.azurewebsites.net/api/")
-            .addConverterFactory(MoshiConverterFactory.create())
-            .build()
-
-        val service = retrofit.create(ApiService::class.java)
 
         if (AppPreferences.isLogin) {
             service.getArticlesAuthenticated(AppPreferences.authToken, count).enqueue(this)
@@ -110,17 +117,14 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
 
     override fun onResponse(call: Call<ArticleResult>, response: Response<ArticleResult>) {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+
         val adapter = MyAdapter(response.body()!!.Results)
         adapter.setItemListener(this)
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
         val loadingArticles: TextView = findViewById(R.id.loading_articles)
         loadingArticles.isVisible = false
-
-        val loadMoreButton: Button = findViewById(R.id.getMore)
-        loadMoreButton.isVisible = true
     }
 
     override fun onFailure(call: Call<ArticleResult>, t: Throwable) {

@@ -13,6 +13,5 @@
     <string name="like">Like</string>
     <string name="logout">Logout</string>
     <string name="like_article">Like article</string>
-    <string name="get_20_more">Get 20 more</string>
     <string name="loading_articles">Loading articles…</string>
 </resources>
