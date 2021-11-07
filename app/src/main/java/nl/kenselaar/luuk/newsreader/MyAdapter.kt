@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import nl.kenselaar.luuk.newsreader.model.Article
-import nl.kenselaar.luuk.newsreader.model.ArticleResult
 
 class MyAdapter(private val items: List<Article>) : RecyclerView.Adapter<MyViewHolder>() {
 

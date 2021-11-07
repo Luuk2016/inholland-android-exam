@@ -6,8 +6,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -108,11 +106,7 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
     private fun getArticles(count: Int) {
         AppPreferences.init(this)
 
-        if (AppPreferences.isLogin) {
-            service.getArticlesAuthenticated(AppPreferences.authToken, count).enqueue(this)
-        } else {
-            service.getArticles(count).enqueue(this)
-        }
+        service.getArticles(AppPreferences.authToken.ifEmpty { null }, count).enqueue(this)
     }
 
     override fun onResponse(call: Call<ArticleResult>, response: Response<ArticleResult>) {
