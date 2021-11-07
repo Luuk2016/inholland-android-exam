@@ -20,7 +20,7 @@ class AccountActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
-        supportActionBar!!.title = "Login"
+        supportActionBar!!.title = applicationContext.getString(R.string.login)
 
         AppPreferences.init(this)
 
@@ -42,13 +42,13 @@ class AccountActivity : AppCompatActivity() {
             val password = passwordField.text.toString().trim()
 
             if (username.isEmpty()) {
-                usernameField.error = "Username is required"
+                usernameField.error = applicationContext.getString(R.string.username_required_textfield)
                 usernameField.requestFocus()
                 return@setOnClickListener
             }
 
             if (password.isEmpty()) {
-                passwordField.error = "Password is required"
+                passwordField.error = applicationContext.getString(R.string.password_required_textfield)
                 passwordField.requestFocus()
                 return@setOnClickListener
             }
@@ -62,19 +62,19 @@ class AccountActivity : AppCompatActivity() {
 
             service.userLogin(User(username, password)).enqueue(object: Callback<LoginResponse>{
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    Toast.makeText(applicationContext, "Login failed, please try again.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, applicationContext.getString(R.string.failed_login_toast), Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                     if (response.body() != null) {
-                        Toast.makeText(applicationContext, "You have been logged in!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, applicationContext.getString(R.string.succesfull_login_toast), Toast.LENGTH_SHORT).show()
                         AppPreferences.isLogin = true
                         AppPreferences.authToken = response.body()?.AuthToken.toString()
 
                         // Open new page
                         startActivity(Intent(this@AccountActivity, MainActivity::class.java))
                     } else {
-                        Toast.makeText(applicationContext, "Failed to login!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, applicationContext.getString(R.string.failed_login_toast), Toast.LENGTH_SHORT).show()
                     }
                 }
             })

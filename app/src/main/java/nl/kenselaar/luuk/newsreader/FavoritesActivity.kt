@@ -43,7 +43,7 @@ class FavoritesActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemLi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.favorites_view)
-        supportActionBar!!.title = "Favorite articles"
+        supportActionBar!!.title = applicationContext.getString(R.string.favorite_articles)
         AppPreferences.init(this)
 
         getLikedArticles()

@@ -1,5 +1,6 @@
 package nl.kenselaar.luuk.newsreader
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
             AppPreferences.init(this)
             AppPreferences.isLogin = false
             AppPreferences.authToken = ""
-            Toast.makeText(applicationContext, "You have been logged out!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, applicationContext.getString(R.string.logged_out_toast), Toast.LENGTH_SHORT).show()
             recreate()
             true
         }
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
             if (AppPreferences.isLogin) {
                 startActivity(Intent(this, FavoritesActivity::class.java))
             } else {
-                Toast.makeText(applicationContext, "Please login first!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, applicationContext.getString(R.string.login_first_toast), Toast.LENGTH_SHORT).show()
             }
 
             true
@@ -99,7 +100,7 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    Toast.makeText(applicationContext, "Loading 20 more", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, applicationContext.getString(R.string.load_20_articles_toast), Toast.LENGTH_SHORT).show()
                     count += 20
                     getArticles(count)
                 }

@@ -28,7 +28,7 @@ class ArticleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.article_view)
-        supportActionBar!!.title = "Article"
+        supportActionBar!!.title = applicationContext.getString(R.string.article)
         AppPreferences.init(this)
 
         val article = intent.getSerializableExtra(ARTICLE) as? Article
@@ -52,35 +52,35 @@ class ArticleActivity : AppCompatActivity() {
                     if (!article.IsLiked) {
                         service.likeArticle(AppPreferences.authToken, article.Id).enqueue(object: Callback<Void>{
                             override fun onFailure(call: Call<Void>, t: Throwable) {
-                                Toast.makeText(applicationContext, "Could not like article, please try again", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(applicationContext, applicationContext.getString(R.string.failed_to_like_article_toast), Toast.LENGTH_SHORT).show()
                             }
 
                             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                 if (response.code() == 200) {
-                                    Toast.makeText(applicationContext, "Article has been liked", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(applicationContext, applicationContext.getString(R.string.article_liked_toast), Toast.LENGTH_SHORT).show()
                                 } else {
-                                    Toast.makeText(applicationContext, "Could not like article, please try again", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(applicationContext, applicationContext.getString(R.string.failed_to_like_article_toast), Toast.LENGTH_SHORT).show()
                                 }
                             }
                         })
                     } else {
                         service.unlikeArticle(AppPreferences.authToken, article.Id).enqueue(object: Callback<Void>{
                             override fun onFailure(call: Call<Void>, t: Throwable) {
-                                Toast.makeText(applicationContext, "Could not unlike article, please try again", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(applicationContext, applicationContext.getString(R.string.failed_to_unlike_article_toast), Toast.LENGTH_SHORT).show()
                             }
 
                             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                 if (response.code() == 200) {
-                                    Toast.makeText(applicationContext, "Article has been unliked", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(applicationContext, applicationContext.getString(R.string.article_unliked_toast), Toast.LENGTH_SHORT).show()
                                 } else {
-                                    Toast.makeText(applicationContext, "Could not unlike article, please try again", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(applicationContext, applicationContext.getString(R.string.failed_to_unlike_article_toast), Toast.LENGTH_SHORT).show()
                                 }
                             }
                         })
                     }
                 }
             } else {
-                Toast.makeText(applicationContext, "Please login first.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, applicationContext.getString(R.string.login_first_toast), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -108,9 +108,9 @@ class ArticleActivity : AppCompatActivity() {
         val likeArticleButton: Button = findViewById(R.id.likeArticle)
 
         if (!article.IsLiked) {
-            likeArticleButton.text = "Like article"
+            likeArticleButton.text = applicationContext.getString(R.string.like_article)
         } else {
-            likeArticleButton.text = "Unlike article"
+            likeArticleButton.text = applicationContext.getString(R.string.unlike_article)
         }
     }
 }

@@ -8,11 +8,27 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="signup">Signup</string>
+    <string name="article">Article</string>
     <string name="open_in_browser">Open in browser</string>
     <string name="like">Like</string>
     <string name="logout">Logout</string>
     <string name="loading_articles">Loading articles…</string>
     <string name="like_unlike_article">Like/Unlike article</string>
+    <string name="like_article">Like article</string>
+    <string name="unlike_article">Unlike article</string>
     <string name="no_favorite_articles">No favorite articles</string>
     <string name="no_articles_found">No articles found</string>
+    <string name="load_20_articles_toast">Loading 20 articles more</string>
+    <string name="logged_out_toast">You have been logged out!</string>
+    <string name="login_first_toast">Please login first</string>
+    <string name="succesfull_login_toast">You have been logged in</string>
+    <string name="failed_login_toast">Login failed, please try again</string>
+    <string name="failed_signup_toast">Signup failed, please try again</string>
+    <string name="username_required_textfield">Username is required</string>
+    <string name="password_required_textfield">Password is required</string>
+    <string name="failed_to_like_article_toast">Could not like article, please try again</string>
+    <string name="article_liked_toast">Article has been liked</string>
+    <string name="failed_to_unlike_article_toast">Could not unlike article, please try again</string>
+    <string name="article_unliked_toast">Article has been unliked</string>
+    <string name="favorite_articles">Favorite articles</string>
 </resources>

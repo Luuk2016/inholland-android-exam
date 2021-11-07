@@ -20,7 +20,7 @@ class SignupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
-        supportActionBar!!.title = "Signup"
+        supportActionBar!!.title = applicationContext.getString(R.string.signup)
 
         AppPreferences.init(this)
 
@@ -42,13 +42,13 @@ class SignupActivity : AppCompatActivity() {
             val password = passwordField.text.toString().trim()
 
             if (username.isEmpty()) {
-                usernameField.error = "Username is required"
+                usernameField.error = applicationContext.getString(R.string.username_required_textfield)
                 usernameField.requestFocus()
                 return@setOnClickListener
             }
 
             if (password.isEmpty()) {
-                passwordField.error = "Password is required"
+                passwordField.error = applicationContext.getString(R.string.password_required_textfield)
                 passwordField.requestFocus()
                 return@setOnClickListener
             }
@@ -62,7 +62,7 @@ class SignupActivity : AppCompatActivity() {
 
             service.userRegister(User(username, password)).enqueue(object: Callback<RegisterResponse> {
                 override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                    Toast.makeText(applicationContext, "Signup failed, please try again.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, applicationContext.getString(R.string.failed_signup_toast), Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {

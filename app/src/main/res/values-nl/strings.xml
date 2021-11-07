@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Newsreader</string>
+    <string name="refresh">Ververs</string>
+    <string name="favorites">Favorieten</string>
+    <string name="please_enter_your_details">Vul uw gegevens in</string>
+    <string name="username">Gebruikersnaam</string>
+    <string name="password">Wachtwoord</string>
+    <string name="login">Login</string>
+    <string name="signup">Registreer</string>
+    <string name="open_in_browser">Open in browser</string>
+    <string name="logout">Uitloggen</string>
+    <string name="loading_articles">Artikelen worden geladen…</string>
+    <string name="like_unlike_article">Like/Unlike artikel</string>
+    <string name="no_favorite_articles">Geen favoriete artikelen gevonden</string>
+    <string name="like">Like</string>
+    <string name="dropdown">Dropdown</string>
+    <string name="no_articles_found">Geen artikelen gevonden</string>
+    <string name="article">Artikel</string>
+    <string name="like_article">Voeg toe aan favorieten</string>
+    <string name="unlike_article">Verwijder uit favorieten</string>
+    <string name="load_20_articles_toast">20 artikelen worden geladen</string>
+    <string name="logged_out_toast">Je bent uitgelogd</string>
+    <string name="login_first_toast">Log eerst in</string>
+    <string name="succesfull_login_toast">Je bent ingelogd</string>
+    <string name="failed_login_toast">Login niet gelukt, probeer opnieuw</string>
+    <string name="failed_signup_toast">Registreren niet gelukt, probeer opnieuw</string>
+    <string name="username_required_textfield">Gebruikersnaam is verplicht</string>
+    <string name="password_required_textfield">Wachtwoord is verplicht</string>
+    <string name="failed_to_like_article_toast">Kan artikel niet aan favorieten toevoegen</string>
+    <string name="article_liked_toast">Artikel is toegevoegd aan favorieten</string>
+    <string name="failed_to_unlike_article_toast">Kan artikel niet aan favorieten verwijderen</string>
+    <string name="article_unliked_toast">Artikel is uit favorieten verwijderd</string>
+    <string name="favorite_articles">Favoriete artikelen</string>
+</resources>
