@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Newsreader</string>
     <string name="dropdown">Dropdown</string>
-    <string name="account">Account</string>
     <string name="refresh">Refresh</string>
     <string name="favorites">Favorites</string>
     <string name="please_enter_your_details">Please enter your details</string>
@@ -12,6 +11,8 @@
     <string name="open_in_browser">Open in browser</string>
     <string name="like">Like</string>
     <string name="logout">Logout</string>
-    <string name="like_article">Like article</string>
     <string name="loading_articles">Loading articles…</string>
+    <string name="like_unlike_article">Like/Unlike article</string>
+    <string name="no_favorite_articles">No favorite articles</string>
+    <string name="no_articles_found">No articles found</string>
 </resources>

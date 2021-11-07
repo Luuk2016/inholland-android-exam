@@ -35,6 +35,6 @@
         <activity
             android:name=".SignupActivity"
             android:exported="true"
-            android:parentActivityName=".AccountActivity" />
+            android:parentActivityName=".MainActivity" />
     </application>
 </manifest>

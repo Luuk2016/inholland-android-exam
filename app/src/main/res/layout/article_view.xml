@@ -74,7 +74,7 @@
             android:gravity="center"
             android:textSize="11sp"
             android:textStyle="normal"
-            android:text="@string/like_article"
+            android:text="@string/like_unlike_article"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"

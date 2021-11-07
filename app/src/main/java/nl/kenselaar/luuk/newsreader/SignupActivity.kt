@@ -30,6 +30,11 @@ class SignupActivity : AppCompatActivity() {
 
         // Set the buttons
         val signupButton = findViewById<Button>(R.id.signupButton)
+        val loginButton = findViewById<Button>(R.id.loginButton)
+
+        loginButton.setOnClickListener {
+            startActivity(Intent(this, AccountActivity::class.java))
+        }
 
         signupButton.setOnClickListener {
             // Set values from fields

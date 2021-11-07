@@ -14,8 +14,11 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
-                android:id="@+id/account"
-                android:title="@string/account" />
+                android:id="@+id/login"
+                android:title="@string/login" />
+            <item
+                android:id="@+id/signup"
+                android:title="@string/signup" />
             <item
                 android:id="@+id/favorites"
                 android:title="@string/favorites" />

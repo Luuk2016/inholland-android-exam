@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -70,6 +71,12 @@ class FavoritesActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemLi
 
         val loadingArticles: TextView = findViewById(R.id.loading_articles)
         loadingArticles.isVisible = false
+
+        // Check if any articles have been found
+        if (response.body()!!.Results.isEmpty()) {
+            val noFavoriteArticlesFound: TextView = findViewById(R.id.no_favorite_articles_found)
+            noFavoriteArticlesFound.isVisible = true
+        }
     }
 
     override fun onFailure(call: Call<ArticleResult>, t: Throwable) {

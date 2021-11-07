@@ -49,8 +49,12 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
             recreate()
             true
         }
-        R.id.account -> {
+        R.id.login -> {
             startActivity(Intent(this, AccountActivity::class.java))
+            true
+        }
+        R.id.signup -> {
+            startActivity(Intent(this, SignupActivity::class.java))
             true
         }
         R.id.logout -> {
@@ -119,6 +123,12 @@ class MainActivity : AppCompatActivity(), Callback<ArticleResult>, MyItemListene
 
         val loadingArticles: TextView = findViewById(R.id.loading_articles)
         loadingArticles.isVisible = false
+
+        // Check if any articles have been found
+        if (response.body()!!.Results.isEmpty()) {
+            val noArticlesFound: TextView = findViewById(R.id.no_articles_found)
+            noArticlesFound.isVisible = true
+        }
     }
 
     override fun onFailure(call: Call<ArticleResult>, t: Throwable) {
